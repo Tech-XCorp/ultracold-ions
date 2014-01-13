@@ -30,10 +30,7 @@ def loadCrystal(filename):
     return s
 
 
-#s = createCrystal()
-#np.savetxt("crystal127.dat", s.ptcls.ptclList)
-
-s = loadCrystal('newcrystal127.dat')
+s = loadCrystal('exampleData/crystal127.dat')
 
 def rotate(xy, phase):
     return np.array([
