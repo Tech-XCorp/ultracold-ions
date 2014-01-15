@@ -16,7 +16,8 @@ params = {'backend': 'ps',
 
 plt.rcParams.update(params)
 
-baseName = 'axialPhononRuns/run3_'
+baseName = 'C:/Users/ACKWinDesk/Documents/GitHub/ultracold-ions-notes/axialPhononSpectra/data/run3/run3_'
+#baseName = 'axialPhononRuns/run3_'
 suffix = '.dat'
 nMin = 0  
 nMax = 2000
