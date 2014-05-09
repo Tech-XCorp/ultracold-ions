@@ -10,6 +10,7 @@ import numpy
 import pyopencl as cl
 import pyopencl.array as cl_array
 import copy
+import cProfile
 
 class Sim():
 
@@ -66,6 +67,9 @@ class Sim():
         self.trapAcc = TrapAcc.TrapAcc(self.ctx, self.queue)
         self.trapAcc.trapConfiguration = trapConfig
         self.accList.append(self.trapAcc)
+
+        # Make accelerations arrays for BendKickUpdater (load ptcls before calling init_sim)
+        self.updater.SetUpAs(self.ptcls.x().shape, self.ptcls.x().dtype)
         
         self.t = 0.0
 
@@ -78,7 +82,7 @@ class Sim():
         vzd = cl_array.to_device(self.queue, self.ptcls.vz(), async = True)
         qd = cl_array.to_device(self.queue, self.ptcls.q(), async = True)
         md = cl_array.to_device(self.queue, self.ptcls.m())
-
+        #cProfile.run('self.updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md,self.accList, self.t, dt, numSteps)')
         self.t = self.updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md,
                 self.accList, self.t, dt, numSteps)
 
@@ -89,6 +93,28 @@ class Sim():
         vxd.get(self.queue, self.ptcls.vx(), async = True)
         vyd.get(self.queue, self.ptcls.vy(), async = True)
         vzd.get(self.queue, self.ptcls.vz())
+
+    def take_steps_2(self, dt, numSteps ,axd, ayd, azd):
+        xd = cl_array.to_device(self.queue, self.ptcls.x(), async = True)
+        yd = cl_array.to_device(self.queue, self.ptcls.y(), async = True)
+        zd = cl_array.to_device(self.queue, self.ptcls.z(), async = True)
+        vxd = cl_array.to_device(self.queue, self.ptcls.vx(), async = True)
+        vyd = cl_array.to_device(self.queue, self.ptcls.vy(), async = True)
+        vzd = cl_array.to_device(self.queue, self.ptcls.vz(), async = True)
+        qd = cl_array.to_device(self.queue, self.ptcls.q(), async = True)
+        md = cl_array.to_device(self.queue, self.ptcls.m())
+        #cProfile.run('self.updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md,self.accList, self.t, dt, numSteps)')
+        self.t = self.updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md,
+                self.accList, self.t, dt, numSteps,axd,ayd,azd)
+
+        self.queue.finish()
+        xd.get(self.queue, self.ptcls.x(), async = True)
+        yd.get(self.queue, self.ptcls.y(), async = True)
+        zd.get(self.queue, self.ptcls.z(), async = True)
+        vxd.get(self.queue, self.ptcls.vx(), async = True)
+        vyd.get(self.queue, self.ptcls.vy(), async = True)
+        vzd.get(self.queue, self.ptcls.vz())
+
 
     def spin_up(self):
         radii = numpy.sqrt(self.ptcls.x() ** 2 + self.ptcls.y() ** 2)
@@ -124,6 +150,12 @@ class Sim():
         return numpy.array(
                 [numpy.cos(theta) * self.ptcls.x() + numpy.sin(theta) * self.ptcls.y(), 
                 -numpy.sin(theta) * self.ptcls.x() + numpy.cos(theta) * self.ptcls.y()])
+
+    def updateTrapConfig(self,newTrapConfig):
+        self.trapConfiguration = newTrapConfig
+        self.updater.trapConfiguration = newTrapConfig
+        self.trapAcc.trapConfiguration = newTrapConfig
+        
 
 # vi: ts=4 sw=4
 

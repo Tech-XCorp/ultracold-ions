@@ -85,9 +85,9 @@ __kernel void compute_coulomb_acceleration(
     int ptclId = n + i * get_global_size(0) * get_global_size(1);
     if (ptclId < nPtcls) {
       REAL myFact = k * ptcl1[i].w / m1[i];
-      axGlob[ptclId] += myFact * acceleration[i].x;
-      ayGlob[ptclId] += myFact * acceleration[i].y;
-      azGlob[ptclId] += myFact * acceleration[i].z;
+      axGlob[ptclId] = myFact * acceleration[i].x;
+      ayGlob[ptclId] = myFact * acceleration[i].y;
+      azGlob[ptclId] = myFact * acceleration[i].z;
     }
   }
 }

@@ -17,7 +17,7 @@ function setTrapParameters(f,vw,n)
 
 %Declare as global variables, every function that also needs these
 %parameters must have this same line
-global N m wr wc q ke B wz V0 w G Vw ww M l0
+global N m wr wc q ke B wz V0 w G Vw ww M l0 v0
 
 % Fixed constants (MKS units)
 mu = 1.660538921e-27;         % mass unit
@@ -29,7 +29,6 @@ V_T = 1000;                   % Potential on endcap
 G = .045/V_T;                 % "Geometric factor" for "rotating wall" (relates V0 to Vwall)
 wz = 2*pi*795e3;              % Axial Frequency of Penning trap
 V0 = (0.5*m*wz^2)/q;          % Effective Axial potential
-l0 = ((ke*q^2)/(q*V0))^(1/3); % Characteristic Length Scale for non-dimensionalization
 
 % Tunable Parameters
 w  = 2*pi*f*1e3;              % Quadrupole "rotating wall" frequency (same rotation frequency as crystal)
@@ -38,6 +37,9 @@ ww = sqrt(2*q*Vw/m);          % Effective trapping frequency of rotating wall
 N = n;                        % Number of ions
 
 % Convert to dimensionless quantities
+l0 = ((ke*q^2)/(q*V0))^(1/3); % Dimensionless length 
+t0 = 2*pi/wz;                 % Dimensionless time
+v0 = l0/t0;                   % Dimensionless velocity
 wr = w/wz;       			  % Dimensionless crystal rotation frequency
 wc = q*B/(m*wz); 			  % Dimensionless cyclotron frequency
 

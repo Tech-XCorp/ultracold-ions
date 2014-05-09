@@ -61,13 +61,22 @@ class BendKickUpdater():
         self.velKickAdvD.advance_ptcls_velocity_kick.set_scalar_arg_dtypes(
                 [None, None, None, None, None, None, None, None,
                 None, None, None, numpy.float64, numpy.int32])
+        
+    def SetUpAs(self,sh,datatype):
+        self.axd = cl_array.zeros(self.queue, sh, datatype)
+        self.ayd = cl_array.zeros(self.queue, sh, datatype)
+        self.azd = cl_array.zeros(self.queue, sh, datatype)
 
     def update(self, xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations,
             t, dt, numSteps):
-
-        axd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
-        ayd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
-        azd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+        #empty = cl_array.zeros(self.queue, xd.shape, xd.dtype);
+        #axd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+        #ayd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+        #azd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+        
+        #axd = numpy.zeros(xd.shape, xd.dtype)
+        #ayd = numpy.zeros(xd.shape, xd.dtype)
+        #azd = numpy.zeros(xd.shape, xd.dtype)
 
         # half step
         self.cyclAdvance.advancePtcls(xd, yd, zd, vxd, vyd, vzd,
@@ -85,9 +94,9 @@ class BendKickUpdater():
         # full kick
         for acc in accelerations:
             acc.computeAcc(xd, yd, zd, vxd, vyd, vzd, qd, md,
-                    axd, ayd, azd, t, dt)
+                    self.axd, self.ayd, self.azd, t, dt)
         self.applyVelocityKick(xd, yd, zd, vxd, vyd, vzd,
-                qd, md, axd, ayd, azd, dt)
+                qd, md, self.axd, self.ayd, self.azd, dt)
 
         # n - 1 full drift-kick pairs
         for i in range(numSteps - 1):
@@ -102,14 +111,24 @@ class BendKickUpdater():
                         self.trapConfiguration.omega, dt)
             self.trapConfiguration.theta += dt * self.trapConfiguration.omega
             t += dt
-            axd.fill(numpy.float32(0), queue = self.queue)
-            ayd.fill(numpy.float32(0), queue = self.queue)
-            azd.fill(numpy.float32(0), queue = self.queue)
+
+            #axd.fill(0.0)
+            #ayd.fill(0.0)
+            #azd.fill(0.0)
+            #axd = empty.copy(self.queue)
+            #ayd = empty.copy(self.queue)
+            #azd = empty.copy(self.queue)
+            #axd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+            #ayd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+            #azd = cl_array.zeros(self.queue, xd.shape, xd.dtype)
+            #axd.fill(numpy.float32(0), queue = self.queue)
+            #ayd.fill(numpy.float32(0), queue = self.queue)
+            #azd.fill(numpy.float32(0), queue = self.queue)
             for acc in accelerations:
                 acc.computeAcc(xd, yd, zd, vxd, vyd, vzd, qd, md,
-                        axd, ayd, azd, t, dt)
+                        self.axd, self.ayd, self.azd, t, dt)
             self.applyVelocityKick(xd, yd, zd, vxd, vyd, vzd,
-                    qd, md, axd, ayd, azd, dt)
+                    qd, md, self.axd, self.ayd, self.azd, dt)
 
         if self.angularDampingCoefficient != None:
             self.angularDampingAdvance.advancePtcls(xd, yd, zd, vxd, vyd, vzd,
