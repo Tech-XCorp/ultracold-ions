@@ -18,7 +18,7 @@ s.ptcls.set_nptcls(n)
 
 
 # 1/e radius of cloud.
-s.ptcls.rmax = 2.0e-4
+s.ptcls.sigma = 2.0e-4
 s.ptcls.init_ptcls(charge = fund_charge, mass = ion_mass)
 
 

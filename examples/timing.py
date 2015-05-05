@@ -19,7 +19,7 @@ def loadCrystal(filename):
     ionMass = 8.9465 * 1.673e-27
     s = Sim.Sim()
     s.ptcls.set_nptcls(127)
-    s.ptcls.rmax = 1.0e-4
+    s.ptcls.sigma = 1.0e-4
     s.ptcls.init_ptcls(charge = fundcharge, mass = ionMass)
     axialFrictionCoeff = None
     angularFrictionCoeff = None

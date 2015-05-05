@@ -8,7 +8,7 @@ class Ptcls():
     
     def __init__(self, n = 1):
         self.numPtcls = 1
-        self.rmax = 1.0e-4
+        self.sigma = 1.0e-4
         self.vbar = 0
         self.vth = 0
 
@@ -26,7 +26,7 @@ class Ptcls():
 
         if source=='gaussian':
             for j in range(pstart, pend):
-                r = abs(random.gauss(0.,self.rmax))
+                r = abs(random.gauss(0.,self.sigma))
                 theta = numpy.arccos(2.*random.random()-1)
                 phi = 2.*numpy.pi*random.random()
                 self.ptclList[0][j]=r*numpy.sin(theta)*numpy.cos(phi)
