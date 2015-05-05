@@ -43,6 +43,9 @@ class Sim():
                 theCopy.updater.angularDampingCoefficient)
         return theCopy
 
+    def initialize(self):
+        self.updater.SetUpAs(self.ptcls.x().shape, self.ptcls.x().dtype)
+
     def init_sim(self, trapConfig, axialDampingCoefficient,
             angularDampingCoefficient, recoilVelocity = None,
             scatterRate = None):
