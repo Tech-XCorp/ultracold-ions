@@ -17,7 +17,7 @@
 %
 % Must have trap parameters set by setTrapParameters(...)
 
-function [E,D,st,A,T] = normalModes(u,zflag)
+function [E,D,st] = normalModes(u,zflag)
 
 global N wr wc G Vw M 	                % Load relevant parameters 
 
@@ -35,9 +35,9 @@ if zflag
         A(n,:) = A(n,:)./(sqrt(M(n)*M));                    % Divide matrix by sqrt(m_i*m_j)
     end
   
-    [E,D] = eig(A);    % Calculate eigenvectors E, eigenvalues D
-	D = diag(D);       % Extract diagonal (eigenvalues on diagonal of D)
-    
+    [E,D] = eig(A);    % Calculate eigenvectors E
+    D = eig(A);        % Calculate eigenvalues D
+	
     [D ind] = sort(D); % Sort by ascending eigenvalues
     E = E(:,ind);      % Match eigenvectors to sorted eigenvalues
     st = isreal(D);    % Stability criteria. If all of the frequencies are real, the crystal is stable as one plane.
@@ -45,7 +45,6 @@ if zflag
     % Convert to real eigenfrequencies and eigenvectors (not orthogonal)
     D = sqrt(D/mean(M));
     E = sqrt(mean(M))*(diag(M.^(-.5))*E); % Convert to original eigenvectors
-    T = [];
     
 %------------------------
 %     Planar Modes
@@ -91,12 +90,11 @@ else
     T =  wc*([[Z_N eye(N)]; [-eye(N) Z_N]]);
     T = [[Z_N 2*wr*eye(N)]; [-2*wr*eye(N) Z_N]] - T;
     
-   % size(A)
-   % size(T)
-   % size(diag(M))
+    size(A)
+    size(T)
+    size(diag(M))
     %Matlab's polyeig (general eigenvalue problem)
     [E,D] = polyeig(-A,-1i*T,-diag([M M]));
-   % size(E)
     D = real(D);
     gz = (D>0);
     E = E(:,gz);
@@ -107,7 +105,6 @@ else
     %E=abs(E);
     %E=real(Eraw);
     st = (length(D) == 2*N);
-
 
     
     %     for i=1:N

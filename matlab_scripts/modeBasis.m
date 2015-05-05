@@ -15,7 +15,7 @@ end
 norm_coords = zeros(1,N);
 
 for m = modes
-    norm_coords(m) = dot(z',E(:,m));
+    norm_coords(m) = dot(z,E(:,m));
 end
 
 end
