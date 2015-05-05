@@ -13,6 +13,14 @@ PYTHONPATH.  See [addThisDirToPythonPath.sh](addThisDirToPythonPath.sh)
 for details on how to do this under linux.
 
 
+## Feedback, issues, and contributions
+
+Please use the
+[issue tracker on github](https://github.com/Tech-XCorp/ultracold-ions/issues)
+for any comments, questions, and suggestions.  We are also gladly accepting
+contributions and bug fixes via pull requests.  Details can be found in
+the [CONTRIBUTING.md file](CONTRIBUTING.md).
+
 ## Prerequisites
 
 ucilib's primary dependencies are
