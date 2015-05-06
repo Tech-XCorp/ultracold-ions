@@ -26,7 +26,6 @@ class HeatingAcc():
 
     def computeAcc(self, xd, yd, zd, vxd, vyd, vzd, qd, md, axd, ayd,
             azd, t, dt):
-#        print "sigma: ", (1.0 / 3.0) * self.diffusionConstant / numpy.sqrt(dt)
         axd += self.generator.normal(self.queue, axd.shape, axd.dtype,
                 sigma = (1.0 / 3.0) * self.diffusionConstant / numpy.sqrt(dt));
         ayd += self.generator.normal(self.queue, ayd.shape, ayd.dtype,

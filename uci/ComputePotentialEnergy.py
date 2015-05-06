@@ -72,7 +72,7 @@ class ComputePotentialEnergy():
                     qd.data, coulombEnergy.data,
                     g_time_l = False)
         else:
-            print "Unknown float type."
+            print("Unknown float type.")
 
         return np.sum(coulombEnergy.get(self.queue))
         

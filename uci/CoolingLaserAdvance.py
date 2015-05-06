@@ -126,9 +126,6 @@ class CoolingLaserAdvance():
         # Compute scattered photons and associated recoil kicks
         nMax = int(math.ceil(10.0 * self.S * 
                     (self.gamma / 2.0 / numpy.pi) * dt))
-#        print nMax
-#        print (10.0 * self.S * 
-#                    (self.gamma / 2.0 / numpy.pi) * dt)
         actualNs = self.findSample(nbars, nMax)
         recoilDirectionsD = cl_array.Array(self.queue,
                 [nbars.size, nMax, 3], dtype = numpy.float32)

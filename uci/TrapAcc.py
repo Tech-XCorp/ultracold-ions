@@ -56,7 +56,6 @@ class TrapAcc():
         """
         
         theta = self.trapConfiguration.theta
-        #print "theta = ",  theta
 
         sinTheta = math.sin(theta)
         cosTheta = math.cos(theta)
@@ -89,7 +88,7 @@ class TrapAcc():
                axd.data, ayd.data, azd.data,
                g_times_l = False)
         else :
-            print "Unknown float type."
+            print("Unknown float type.")
 
 
 
