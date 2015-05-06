@@ -21,11 +21,12 @@ install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq fglrx=2:8.960-0ubuntu1 opencl-headers 
   - pip install pyopencl
+  - pip install coveralls
   - pwd
   - source addThisDirToPythonPath.sh
 
 script:
-  - nosetests --with-cov --cov uci --cov-config .coveragerc --logging-level=INFO
+  - nosetests --with-coverage --cover-package=uci --logging-level=INFO
      
 # Calculate coverage
 after_success:
