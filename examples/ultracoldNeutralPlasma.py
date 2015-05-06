@@ -1,5 +1,5 @@
-import ucilib.Sim as Sim
-import ucilib.BorisUpdater as BorisUpdater
+import uci.Sim as Sim
+import uci.BorisUpdater as BorisUpdater
 import numpy as np
 
 

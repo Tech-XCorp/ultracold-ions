@@ -1,7 +1,7 @@
-import ucilib.Sim as Sim
-import ucilib.TrapConfiguration as TrapConfig
+import uci.Sim as Sim
+import uci.TrapConfiguration as TrapConfig
 import numpy as np
-import ucilib.CoolingLaserAdvance as coolingLsr
+import uci.CoolingLaserAdvance as coolingLsr
 from time import time
 
 
