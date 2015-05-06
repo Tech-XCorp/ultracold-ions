@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Tech-XCorp/ultracold-ions.svg?branch=master)](https://travis-ci.org/Tech-XCorp/ultracold-ions)
+[![Coverage Status](https://coveralls.io/repos/Tech-XCorp/ultracold-ions/badge.svg)](https://coveralls.io/r/Tech-XCorp/ultracold-ions)
+
 # Ultracold-ions
 
 A framework for molecular dynamics simulations of ultracold plasmas.
