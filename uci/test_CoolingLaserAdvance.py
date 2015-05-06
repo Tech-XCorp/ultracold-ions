@@ -1,7 +1,7 @@
-import CoolingLaserAdvance
-import BendKickUpdater
+import uci.CoolingLaserAdvance as CoolingLaserAdvance
+import uci.BendKickUpdater as BendKickUpdater
+import uci.Ptcls as Ptcls
 import numpy as np
-import Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 
