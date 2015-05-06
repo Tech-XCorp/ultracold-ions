@@ -20,7 +20,7 @@ install:
   - sudo apt-get install -qq fglrx=2:8.960-0ubuntu1 opencl-headers 
   - pip install pyopencl
   - pip install coveralls
-  - source addThisDirToPythonPath.sh
+  - pip install .
   - export PYOPENCL_CTX=0
 
 script:
