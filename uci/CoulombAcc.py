@@ -1,5 +1,5 @@
 import numpy
-import Ptcls
+import uci.Ptcls as Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys
@@ -99,7 +99,7 @@ class CoulombAcc():
                axd.data, ayd.data, azd.data,
                g_times_l = False)
         else:
-            print "Unknown float type."
+            print("Unknown float type.")
 
 
     def computeLaunchConfig(self, numPtcls):

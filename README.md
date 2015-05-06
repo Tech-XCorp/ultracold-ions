@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/Tech-XCorp/ultracold-ions.svg?branch=master)](https://travis-ci.org/Tech-XCorp/ultracold-ions)
+[![Coverage Status](https://coveralls.io/repos/Tech-XCorp/ultracold-ions/badge.svg)](https://coveralls.io/r/Tech-XCorp/ultracold-ions)
+
 # Ultracold-ions
 
 A framework for molecular dynamics simulations of ultracold plasmas.
@@ -12,6 +15,14 @@ To install ucilib install the prerequisites and add ucilib to the
 PYTHONPATH.  See [addThisDirToPythonPath.sh](addThisDirToPythonPath.sh)
 for details on how to do this under linux.
 
+
+## Feedback, issues, and contributions
+
+Please use the
+[issue tracker on github](https://github.com/Tech-XCorp/ultracold-ions/issues)
+for any comments, questions, and suggestions.  We are also gladly accepting
+contributions and bug fixes via pull requests.  Details can be found in
+the [CONTRIBUTING.md file](CONTRIBUTING.md).
 
 ## Prerequisites
 

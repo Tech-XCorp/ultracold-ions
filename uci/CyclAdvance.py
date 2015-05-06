@@ -1,5 +1,5 @@
 import numpy
-import Ptcls
+import uci.Ptcls as Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys
@@ -77,7 +77,7 @@ class CyclAdvance():
                numpy.int32(xd.size),
                g_times_l = False)
         else:
-            print "Unknown float type."
+            print("Unknown float type.")
 
 
 # vi: ts=4 sw=4

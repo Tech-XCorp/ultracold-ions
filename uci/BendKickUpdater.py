@@ -5,11 +5,11 @@ import pyopencl as cl
 import numpy
 import sys
 import os
-import TrapConfiguration
-import CyclAdvance
-import AxialDampingAdvance
-import AngularDampingAdvance
-import CoolingAlongXAdvance
+import uci.TrapConfiguration as TrapConfiguration
+import uci.CyclAdvance as CyclAdvance
+import uci.AxialDampingAdvance as AxialDampingAdvance
+import uci.AngularDampingAdvance as AngularDampingAdvance
+import uci.CoolingAlongXAdvance as CoolingAlongXAdvance
 
 class BendKickUpdater():
 
@@ -149,5 +149,5 @@ class BendKickUpdater():
                numpy.int32(xd.size),
                g_times_l = False)
         else:
-            print "Unknown float type."
+            print("Unknown float type.")
 

@@ -1,10 +1,10 @@
-import BendKickUpdater
-import TrapAcc
-import CoulombAcc
-import Ptcls
-import TrapConfiguration
-import FrictionAcc
-import HeatingAcc
+import uci.BendKickUpdater as BendKickUpdater
+import uci.TrapAcc as TrapAcc
+import uci.CoulombAcc as CoulombAcc
+import uci.Ptcls as Ptcls
+import uci.TrapConfiguration as TrapConfiguration
+import uci.FrictionAcc as FrictionAcc
+import uci.HeatingAcc as HeatingAcc
 
 import numpy
 import pyopencl as cl

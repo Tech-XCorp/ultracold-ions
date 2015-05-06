@@ -1,5 +1,5 @@
 import numpy
-import Ptcls
+import uci.Ptcls as Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import pyopencl.clrandom as cl_random
@@ -26,7 +26,6 @@ class HeatingAcc():
 
     def computeAcc(self, xd, yd, zd, vxd, vyd, vzd, qd, md, axd, ayd,
             azd, t, dt):
-#        print "sigma: ", (1.0 / 3.0) * self.diffusionConstant / numpy.sqrt(dt)
         axd += self.generator.normal(self.queue, axd.shape, axd.dtype,
                 sigma = (1.0 / 3.0) * self.diffusionConstant / numpy.sqrt(dt));
         ayd += self.generator.normal(self.queue, ayd.shape, ayd.dtype,

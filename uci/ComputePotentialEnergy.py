@@ -1,5 +1,5 @@
 import numpy
-import Ptcls
+import uci.Ptcls as Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys
@@ -72,7 +72,7 @@ class ComputePotentialEnergy():
                     qd.data, coulombEnergy.data,
                     g_time_l = False)
         else:
-            print "Unknown float type."
+            print("Unknown float type.")
 
         return np.sum(coulombEnergy.get(self.queue))
         
