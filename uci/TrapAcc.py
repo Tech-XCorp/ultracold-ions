@@ -1,9 +1,9 @@
 # vi: ts=4 sw=4
 
-import TrapConfiguration
+import uci.TrapConfiguration
+import uci.Ptcls as Ptcls
 
 import numpy
-import Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys

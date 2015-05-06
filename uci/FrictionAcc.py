@@ -1,7 +1,7 @@
 # vi: ts=4 sw=4
 
 import numpy
-import Ptcls
+import uci.Ptcls as Ptcls
 import pyopencl as cl
 import pyopencl.array as cl_array
 import sys
