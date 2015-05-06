@@ -11,9 +11,18 @@ efficiently on CPUs and GPUs.
 
 ## Getting Started
 
-To install ucilib install the prerequisites and add ucilib to the
-PYTHONPATH.  See [addThisDirToPythonPath.sh](addThisDirToPythonPath.sh)
-for details on how to do this under linux.
+To install ucilib install the [prerequisites](#prerequisites) and then
+run (note that this usually requires root privileges)
+
+    python setup.py install
+
+For development purposes it may be advantageous to use the alternative
+command
+
+    python setup.py develop
+
+This way any changes to the `uci` library take effect immediately (i.e.
+without having to reinstall the package).
 
 
 ## Feedback, issues, and contributions
@@ -24,7 +33,9 @@ for any comments, questions, and suggestions.  We are also gladly accepting
 contributions and bug fixes via pull requests.  Details can be found in
 the [CONTRIBUTING.md file](CONTRIBUTING.md).
 
+
 ## Prerequisites
+<a name="prerequisites"></a>
 
 ucilib's primary dependencies are
 
