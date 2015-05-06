@@ -64,12 +64,10 @@ def take_steps(n, dt, ptcls, updater, accelerations):
 
 
 def test_takeSteps():
-    numSteps = 500
+    numSteps = 3
     history = np.ndarray([numSteps, ptcls.numPtcls])
     for i in range(numSteps):
         history[i] = ptcls.vz().copy()
         take_steps(10, 1.0e-6, ptcls, updater, accelerations)
-    np.savetxt('vzOfT.dat', history)
-
 
 # vi: ts=4 sw=4
