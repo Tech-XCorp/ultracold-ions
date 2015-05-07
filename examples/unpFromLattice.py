@@ -1,6 +1,9 @@
 import uci.BorisUpdater as BorisUpdater
+import uci.CoulombAcc as CoulombAcc
 import uci.Ptcls as Ptcls
 import numpy as np
+import pyopencl as cl
+import pyopencl.array as cl_array
 
 
 # Some helpful constants.
@@ -13,7 +16,7 @@ ion_mass = 87.9056 * atomic_unit
 
 
 # initialize particles
-n_wells = 100
+n_wells = 10
 n_ions = n_wells**3
 ptcls = Ptcls.Ptcls()
 ptcls.set_nptcls(2 * n_ions)
@@ -40,3 +43,26 @@ ptcls.ptclList[3:6,n_ions:] = np.random.normal(0.0, vThermal,
                                                ptcls.ptclList[3:6,n_ions:].shape)
 ptcls.ptclList[6,n_ions:] = -fund_charge
 ptcls.ptclList[7,n_ions:] = electron_mass
+
+
+ctx = cl.create_some_context(interactive = True)
+queue = cl.CommandQueue(ctx)
+coulomb_acc = CoulombAcc.CoulombAcc(ctx, queue)
+accelerations = [coulomb_acc]
+updater = BorisUpdater.BorisUpdater(ctx, queue)
+
+xd = cl_array.to_device(queue, ptcls.x())
+yd = cl_array.to_device(queue, ptcls.y())
+zd = cl_array.to_device(queue, ptcls.z())
+vxd = cl_array.to_device(queue, ptcls.vx())
+vyd = cl_array.to_device(queue, ptcls.vy())
+vzd = cl_array.to_device(queue, ptcls.vz())
+qd = cl_array.to_device(queue, ptcls.q())
+md = cl_array.to_device(queue, ptcls.m())
+
+t = 0.0
+dt = 1.0e-12
+updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations, t, dt, 1)
+xd.get(queue, ptcls.x())
+yd.get(queue, ptcls.y())
+zd.get(queue, ptcls.z())
