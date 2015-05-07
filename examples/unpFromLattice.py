@@ -16,7 +16,7 @@ ion_mass = 87.9056 * atomic_unit
 
 
 # initialize particles
-n_wells = 10
+n_wells = 50
 n_ions = n_wells**3
 ptcls = Ptcls.Ptcls()
 ptcls.set_nptcls(2 * n_ions)
@@ -35,7 +35,7 @@ ptcls.ptclList[7,:n_ions] = ion_mass
 #electrons
 ptcls.ptclList[0:3,n_ions:] = np.random.normal(0.0, 0.5 * abs(xmin),
                                                ptcls.ptclList[0:3,n_ions:].shape)
-electron_temperature = 300.0
+electron_temperature = 3.0
 electron_mass = 9.10938291e-31
 kB = 1.3806e-23
 vThermal = np.sqrt(kB * electron_temperature / electron_mass)
@@ -61,8 +61,14 @@ qd = cl_array.to_device(queue, ptcls.q())
 md = cl_array.to_device(queue, ptcls.m())
 
 t = 0.0
-dt = 1.0e-12
-updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations, t, dt, 1)
-xd.get(queue, ptcls.x())
-yd.get(queue, ptcls.y())
-zd.get(queue, ptcls.z())
+dt = 1.0e-11
+num_steps = 100
+for i in range(100):
+    np.save('ptcls' + str(i) + '.npy',ptcls.ptclList[0:3,:])
+    updater.update(xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations, t, dt,
+                   100)
+    xd.get(queue, ptcls.x())
+    yd.get(queue, ptcls.y())
+    zd.get(queue, ptcls.z())
+
+np.savetxt('ptcls' + str(num_steps) + '.txt',ptcls.ptclList[0:3,:])
