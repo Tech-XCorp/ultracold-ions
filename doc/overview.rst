@@ -6,7 +6,7 @@ Particles
 ---------
 
 Particles are represented using numpy arrays.  Separate numpy arrays are
-used for x, y, z, p_x, p_y, p_z, q, and m.
+used for x, y, z, v_x, v_y, v_z, q, and m.
 
 
 Forces
