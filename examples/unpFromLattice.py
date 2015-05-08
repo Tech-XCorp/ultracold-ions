@@ -4,7 +4,37 @@ import uci.Ptcls as Ptcls
 import numpy as np
 import pyopencl as cl
 import pyopencl.array as cl_array
+import argparse
+import sys
 
+parser = argparse.ArgumentParser(
+        description=
+        """Simulate evolution of a plasma starting from a lattice
+        configuration""")
+parser.add_argument('-t', '--tmax',
+        nargs=1,
+        help='Duration of simulation in s',
+        type=float,
+        default=1.0e-11)
+parser.add_argument('-d', '--dt',
+        nargs=1,
+        help='Integrator time step size',
+        type=float,
+        default=1.0e-12)
+parser.add_argument('-n', '--n_wells',
+        nargs=1,
+        help='Number of lattice wells along one dimension',
+        type=int,
+        default=5)
+parser.add_argument('-o', '--num_dump',
+        nargs=1,
+        help='Number of time steps between dumps of plasma state',
+        type=int,
+        default=10)
+
+class UsageError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
 
 fund_charge = 1.602176565e-19
 atomic_unit = 1.66053892e-27
@@ -68,5 +98,20 @@ def run_simulation(n_wells, dt, tmax, num_dump = 1):
 
     np.savetxt('ptcls' + str(num_dump) + '.txt',ptcls.ptclList[0:3,:])
 
+def main(argv=None):
+    try:
+        try:
+            args = parser.parse_args(argv)
+        except Exception as msg:
+            raise UsageError(msg)
+
+        run_simulation(args.n_wells, args.dt, args.tmax, args.num_dump)
+
+    except UsageError as err:
+        print >>sys.stderr, err.msg
+        print >>sys.stderr, 'For help use --help'
+        return 2
+
 if __name__ == '__main__':
-    run_simulation(10, 1.0e-12, 1.0e-13, 1)
+    sys.exit(main())
+
