@@ -19,8 +19,8 @@ class BorisUpdater():
             self.queue = cl.CommandQueue(self.ctx,
                 properties=cl.command_queue_properties.PROFILING_ENABLE)
 
-    def update(self, xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations,
-            t, dt, numSteps):
+    def update(self, xd, yd, zd, vxd, vyd, vzd, qd, md, forces,
+            t, dt, num_steps):
 
         axd = cl_array.zeros_like(xd)
         ayd = cl_array.zeros_like(xd)
@@ -38,7 +38,7 @@ class BorisUpdater():
             axd.fill(0.0, self.queue)
             ayd.fill(0.0, self.queue)
             azd.fill(0.0, self.queue)
-            for acc in accelerations:
+            for acc in forces:
                 acc.computeAcc(xd, yd, zd, vxd, vyd, vzd, qd, md,
                         axd, ayd, azd, t)
             vxd += dt * axd
@@ -51,4 +51,5 @@ class BorisUpdater():
             zd += (0.5 * dt) * vzd
 
             t += 0.5 * dt
+
         return t
