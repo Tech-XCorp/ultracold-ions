@@ -1,4 +1,6 @@
 *.pyc
+*.npy
 *.dat
 ultracold_ions.egg-info
 ucienv
+doc/_build
