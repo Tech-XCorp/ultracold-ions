@@ -32,7 +32,9 @@ class BorisUpdater():
             xd += (0.5 * dt) * vxd
             yd += (0.5 * dt) * vyd
             zd += (0.5 * dt) * vzd
-            
+
+            t += 0.5 * dt
+
             axd.fill(0.0, self.queue)
             ayd.fill(0.0, self.queue)
             azd.fill(0.0, self.queue)
@@ -47,3 +49,6 @@ class BorisUpdater():
             xd += (0.5 * dt) * vxd
             yd += (0.5 * dt) * vyd
             zd += (0.5 * dt) * vzd
+
+            t += 0.5 * dt
+        return t
