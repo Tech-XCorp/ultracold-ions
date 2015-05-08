@@ -4,7 +4,25 @@ import random
 import numpy
 import math
 
+
+def compute_kinetic_energies(vx, vy, vz, m):
+    """Compute the kinetic energies of a set of particles."""
+    return 0.5 * m * (vx**2 + vy**2 + vz**2)
+
+
+def compute_temperature(vx, vy, vz, m):
+    """Compute temperature of neutral particles in free space.
+        
+        This function assumes that all motion of the particles is
+        thermal,  i.e. there is no center of mass momentum or angular
+        momentum.
+        """
+    kB = 1.3806e-23
+    return (2.0 / 3.0) * numpy.mean(compute_kinetic_energies(vx, vy, vz, m)) / kB
+    
+
 class Ptcls():
+    """An ensemble of particles."""
     
     def __init__(self, n = 1):
         self.numPtcls = 1
@@ -44,6 +62,15 @@ class Ptcls():
             self.ptclList = numpy.loadtxt(source)
             self.numPtcls = myarr.shape[1]
 
+    def temperature(self):
+        """Compute temperature of the ensemble of particles.
+            
+            This function assumes that all motion of the particles is
+            thermal,  i.e. there is no center of mass momentum or angular
+            momentum.
+        """
+        return compute_temperature(self.ptclList[3], self.ptclList[4],
+                self.ptclList[5], self.ptclList[7])
 
     def set_nptcls(self, np):
         self.numPtcls = np
@@ -72,4 +99,5 @@ class Ptcls():
 
     def m(self):
         return self.ptclList[7]
+
 
