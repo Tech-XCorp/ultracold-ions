@@ -26,7 +26,7 @@ class BorisUpdater():
         ayd = cl_array.zeros_like(xd)
         azd = cl_array.zeros_like(xd)
 
-        for i in range(numSteps):
+        for i in range(num_steps):
 
             # First half of position advance
             xd += (0.5 * dt) * vxd
