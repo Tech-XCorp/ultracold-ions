@@ -22,33 +22,33 @@ class BorisUpdater():
     def update(self, xd, yd, zd, vxd, vyd, vzd, qd, md, accelerations,
             t, dt, numSteps):
 
-        for i in range(numSteps):
-    # First half kick
-            axd = cl_array.zeros_like(xd)
-            ayd = cl_array.zeros_like(xd)
-            azd = cl_array.zeros_like(xd)
-            for acc in accelerations:
-                acc.computeAcc(xd, yd, zd, vxd, vyd, vzd, qd, md,
-                        axd, ayd, azd, t)
-            vxd += (0.5 * dt) * axd
-            vyd += (0.5 * dt) * ayd
-            vzd += (0.5 * dt) * azd
-            
+        axd = cl_array.zeros_like(xd)
+        ayd = cl_array.zeros_like(xd)
+        azd = cl_array.zeros_like(xd)
 
-    # Advance positions
-            xd += dt * vxd
-            yd += dt * vyd
-            zd += dt * vzd
-            
-    #Second half kick
-            
+        for i in range(numSteps):
+
+            # First half of position advance
+            xd += (0.5 * dt) * vxd
+            yd += (0.5 * dt) * vyd
+            zd += (0.5 * dt) * vzd
+
+            t += 0.5 * dt
+
             axd.fill(0.0, self.queue)
             ayd.fill(0.0, self.queue)
             azd.fill(0.0, self.queue)
             for acc in accelerations:
                 acc.computeAcc(xd, yd, zd, vxd, vyd, vzd, qd, md,
                         axd, ayd, azd, t)
-            vxd += (0.5 * dt) * axd
-            vyd += (0.5 * dt) * ayd
-            vzd += (0.5 * dt) * azd
+            vxd += dt * axd
+            vyd += dt * ayd
+            vzd += dt * azd
 
+            # Second half of position advance
+            xd += (0.5 * dt) * vxd
+            yd += (0.5 * dt) * vyd
+            zd += (0.5 * dt) * vzd
+
+            t += 0.5 * dt
+        return t

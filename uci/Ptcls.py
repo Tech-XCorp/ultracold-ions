@@ -12,7 +12,7 @@ class Ptcls():
         self.vbar = 0
         self.vth = 0
 
-        self.ptclList = 0.0 * numpy.ndarray([8, self.numPtcls])
+        self.ptclList = 0.0 * numpy.ndarray([8, self.numPtcls],dtype=numpy.float32)
 
         self.prec = numpy.float32
         self.numPtcls = n
