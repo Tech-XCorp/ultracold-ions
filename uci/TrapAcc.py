@@ -1,6 +1,6 @@
 # vi: ts=4 sw=4
 
-import uci.TrapConfiguration
+import uci.TrapConfiguration as TrapConfiguration
 import uci.Ptcls as Ptcls
 
 import numpy
