@@ -6,11 +6,9 @@ import sys
 import os
 import math
 
-k = 1./(4.*numpy.pi*8.854187817620389e-12)
-impactFact = 1.0e-9**2 
-
 class ComputePotentialEnergy():
-
+    k = 1./(4.*numpy.pi*8.854187817620389e-12)
+    impactFact = 1.0e-9**2 
     def __init__(self, ctx = None, queue = None):
         self.ctx = ctx
         self.queue = queue
@@ -28,27 +26,25 @@ class ComputePotentialEnergy():
 
         self.compEnergyF = cl.Program(self.ctx, src)
         try:
-            self.compEnergyF.build(options = [' -DIMPACTFACT=(float)'+str(impactFact)
-            +' -Dk=(float)'+str(k)])
+            self.compEnergyF.build(options = [])
         except:
               print("Error:")
               print(self.compEnergyF.get_build_info(self.ctx.devices[0],
                           cl.program_build_info.LOG))
               raise
         self.compEnergyF.calc_potential_energy.set_scalar_arg_dtypes(
-                [None, None, None, None, None, numpy.int32])
+                [None, None, None, None, None, numpy.int32, numpy.float32, numpy.float32])
 
         self.compEnergyD = cl.Program(self.ctx, src)
         try:
-            self.compEnergyD.build(options = [' -DUSE_DOUBLE=TRUE -DIMPACTFACT=(double)'
-            +str(impactFact) +' -Dk=(double)'+str(k)])
+            self.compEnergyD.build(options = [' -DUSE_DOUBLE=TRUE'])
         except:
               print("Error:")
               print(self.compEnergyD.get_build_info(self.ctx.devices[0],
                           cl.program_build_info.LOG))
               raise
         self.compEnergyD.calc_potential_energy.set_scalar_arg_dtypes(
-                [None, None, None, None, None, numpy.int32])
+                [None, None, None, None, None, numpy.int32, numpy.float64, numpy.float64])
 
     def computeEnergy(self, x, y, z, q):
 
@@ -63,12 +59,14 @@ class ComputePotentialEnergy():
                     (x.size, ), None,
                     xd.data, yd.data, zd.data,
                     qd.data, coulombEnergy.data, numpy.int32(len(x)),
+                    numpy.float32(self.k),numpy.float32(self.impactFact),
                     g_times_l = False)
         elif prec == numpy.float64:
             self.compEnergyD.calc_potential_energy(self.queue,
                     (x.size, ), None,
                     xd.data, yd.data, zd.data,
                     qd.data, coulombEnergy.data, numpy.int32(len(x)) ,
+                    numpy.float64(self.k),numpy.float64(self.impactFact),
                     g_times_l = False)
         else:
             print("Unknown float type.")
