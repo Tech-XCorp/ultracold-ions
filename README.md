@@ -3,6 +3,8 @@
 
 # Ultracold-ions
 
+[![Join the chat at https://gitter.im/Tech-XCorp/ultracold-ions](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Tech-XCorp/ultracold-ions?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A framework for molecular dynamics simulations of ultracold plasmas.
 The majority of ucilib is implemented in python.  Performance critical
 parts are implemented in OpenCl.  The OpenCL routines can be executed
