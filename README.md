@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/Tech-XCorp/ultracold-ions.svg?branch=master)](https://travis-ci.org/Tech-XCorp/ultracold-ions)
 [![Coverage Status](https://coveralls.io/repos/Tech-XCorp/ultracold-ions/badge.svg)](https://coveralls.io/r/Tech-XCorp/ultracold-ions)
+[![Join the chat at https://gitter.im/Tech-XCorp/ultracold-ions](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Tech-XCorp/ultracold-ions?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 # Ultracold-ions
-
-[![Join the chat at https://gitter.im/Tech-XCorp/ultracold-ions](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Tech-XCorp/ultracold-ions?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A framework for molecular dynamics simulations of ultracold plasmas.
 The majority of ucilib is implemented in python.  Performance critical
